@@ -2,7 +2,7 @@
 
 Mu Yuan, Jinke Song, Junyue Liu, Siyang Jiang, Junyang Wang, Zhaomeng Zhou, Lan Zhang, Yunhao Liu, Guoliang Xing
 
-Code DOI: `10.5281/zenodo.YYYYYYY` · Data DOI: `10.5281/zenodo.XXXXXXX`
+Code DOI: `10.5281/zenodo.23188240` · Data DOI: `10.5281/zenodo.23187430`
 
 This repository regenerates every figure, Source Data file and quoted number of the paper and its Supplementary Information from the archived data, and reruns all cache-level experiments, on an ordinary CPU.
 It also contains the scripts that ran the GPU experiments on an 8×B300-GPU server and their repetitions on a 4×A100 server, and, in `teamcache/`, the installable TeamCache package for SGLang with the gateway that names requests by team and member.

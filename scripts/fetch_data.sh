@@ -6,7 +6,7 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-RECORD="${ZENODO_RECORD:-XXXXXXX}"
+RECORD="${ZENODO_RECORD:-23187430}"
 NAME="teamcache-ncomms-data-v1.0.0.zip"
 DEST="${TEAMCACHE_DATA:-data}"
 ZIP="${TEAMCACHE_DATA_ZIP:-}"
@@ -16,10 +16,6 @@ if [[ -f "$DEST/MANIFEST.csv" ]]; then
   exit 0
 fi
 if [[ -z "$ZIP" ]]; then
-  if [[ "$RECORD" == XXXXXXX ]]; then
-    echo "the Zenodo record id is not set yet; pass ZENODO_RECORD=<id> or TEAMCACHE_DATA_ZIP=<zip>" >&2
-    exit 1
-  fi
   ZIP="$(mktemp -d)/$NAME"
   curl -fL --retry 3 -o "$ZIP" "https://zenodo.org/records/$RECORD/files/$NAME?download=1"
 fi

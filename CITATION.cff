@@ -3,7 +3,7 @@ message: If you use this code, please cite the paper and the archived release.
 title: "Reproduction code for: Collaboration topology governs inference-cache reuse in language-model agent teams"
 type: software
 version: 1.0.0
-doi: 10.5281/zenodo.YYYYYYY
+doi: 10.5281/zenodo.23188240
 license: MIT
 repository-code: https://github.com/yuanmu97/teamcache-ncomms
 authors: &authors
@@ -34,5 +34,5 @@ preferred-citation:
 references:
   - type: dataset
     title: "Data for: Collaboration topology governs inference-cache reuse in language-model agent teams"
-    doi: 10.5281/zenodo.XXXXXXX
+    doi: 10.5281/zenodo.23187430
     authors: *authors

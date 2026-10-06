@@ -21,7 +21,7 @@ It contains:
 The rest of this repository reproduces the figures and numbers of the paper
 *Collaboration topology governs inference-cache reuse in language-model agent
 teams* (Nature Communications) from its data deposit
-(DOI [10.5281/zenodo.XXXXXXX](https://doi.org/10.5281/zenodo.XXXXXXX)); see the
+(DOI [10.5281/zenodo.23187430](https://doi.org/10.5281/zenodo.23187430)); see the
 [repository README](../README.md).
 
 ## Quick start
@@ -268,4 +268,4 @@ is in the repository's [`CITATION.cff`](../CITATION.cff); please cite the Nature
 Communications paper *Collaboration topology governs inference-cache reuse in
 language-model agent teams* (Yuan et al.). The repository, including this
 package, is archived as
-[10.5281/zenodo.YYYYYYY](https://doi.org/10.5281/zenodo.YYYYYYY).
+[10.5281/zenodo.23188240](https://doi.org/10.5281/zenodo.23188240).
