@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "case": "ring_20x5_p3000_r8",
+  "purpose": "Cross-model validation with opposite arm orders at a calibrated tight-cache operating point; generation is reduced to one token to isolate input-prefix caching.",
+  "date": "2026-09-22",
+  "environment": {
+    "gpus": "8x NVIDIA H200 141GB",
+    "model": "GLM-5.3",
+    "engine": "SGLang 0.5.19",
+    "engine_image_id": "sha256:d6e7288627be8b02be88e4bba38e73f6d50e2826869f753c13a4c4385ab3eda9",
+    "tensor_parallel": 8,
+    "speculative_algorithm": "EAGLE",
+    "pool_tokens": 420800,
+    "max_running_requests": 20,
+    "chunked_prefill_size": 65536
+  },
+  "workload": {
+    "teams": 20,
+    "members_per_team": 5,
+    "rounds": 8,
+    "private_preamble_tokens": 3000,
+    "message_tokens": 144,
+    "max_generation_tokens": 1,
+    "steady_rounds": [5, 6, 7, 8],
+    "seed": 0,
+    "requests_per_arm": 800,
+    "prompt_tokens_per_arm": 4646400
+  },
+  "trials": [
+    {
+      "arm_order": ["lru", "teamcache"],
+      "lru": {
+        "wall_s": 332.8878451939672,
+        "full_prefix_hit_rate": 0.0,
+        "steady_prefix_hit_rate": 0.0,
+        "steady_request_latency_p50_s": 10.126035231514834
+      },
+      "teamcache": {
+        "wall_s": 287.30011474806815,
+        "full_prefix_hit_rate": 0.12287878787878788,
+        "steady_prefix_hit_rate": 0.1969315673289183,
+        "steady_request_latency_p50_s": 8.579185418435372
+      },
+      "wall_speedup": 1.1586763391510466
+    },
+    {
+      "arm_order": ["teamcache", "lru"],
+      "lru": {
+        "wall_s": 326.2368139019236,
+        "full_prefix_hit_rate": 0.0,
+        "steady_prefix_hit_rate": 0.0,
+        "steady_request_latency_p50_s": 10.1806025931146
+      },
+      "teamcache": {
+        "wall_s": 285.8727288870141,
+        "full_prefix_hit_rate": 0.12177685950413224,
+        "steady_prefix_hit_rate": 0.1951655629139073,
+        "steady_request_latency_p50_s": 8.429794389521703
+      },
+      "wall_speedup": 1.1411959971560024
+    }
+  ],
+  "summary": {
+    "mean_lru_wall_s": 329.5623295479454,
+    "mean_teamcache_wall_s": 286.5864218175411,
+    "mean_teamcache_steady_prefix_hit_rate": 0.19604856512141282,
+    "mean_steady_hit_rate_gain_pp": 19.604856512141282,
+    "mean_wall_speedup": 1.1499361681535245,
+    "speedup_range": [1.1411959971560024, 1.1586763391510466]
+  },
+  "method": {
+    "physical_pool_control": "SGLang --max-total-tokens 420800",
+    "active_kv_control": "SGLang --max-running-requests 20 for both arms",
+    "prefill_control": "SGLang --chunked-prefill-size 65536, above the case's 8616-token maximum prompt",
+    "policy_control": "mode=off versus mode=unified with pool_tokens=420800",
+    "cache_isolation": "SGLang /flush_cache before each arm",
+    "validity": "All 3200 requests across the two full A/B trials completed; no HTTP 500, traceback, exception, or fatal CUDA OOM was logged during the confirmation run.",
+    "note": "The concurrency cap leaves a retained-prefix budget after in-flight KV use. This is a systems validation, not the paper's end-to-end generation benchmark."
+  }
+}

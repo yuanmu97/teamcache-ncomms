@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "case": "ring_20x5_p3000_r8",
+  "purpose": "Cross-model validation at a calibrated tight-cache operating point; generation is reduced to one token to isolate input-prefix caching.",
+  "date": "2026-09-21",
+  "environment": {
+    "gpus": "4x NVIDIA A100-SXM4-80GB",
+    "model": "GLM-4.7-Flash",
+    "engine": "SGLang 0.5.18",
+    "tensor_parallel": 4,
+    "pool_tokens": 180000
+  },
+  "workload": {
+    "teams": 20,
+    "members_per_team": 5,
+    "rounds": 8,
+    "private_preamble_tokens": 3000,
+    "message_tokens": 144,
+    "max_generation_tokens": 1,
+    "steady_rounds": [5, 6, 7, 8],
+    "seed": 0,
+    "requests_per_arm": 800,
+    "prompt_tokens_per_arm": 4646400
+  },
+  "arms": {
+    "lru": {
+      "wall_s": 317.6408117101528,
+      "full_prefix_hit_rate": 0.0,
+      "steady_prefix_hit_rate": 0.0,
+      "steady_request_latency_p50_s": 10.266652701888233
+    },
+    "teamcache": {
+      "wall_s": 299.2321529961191,
+      "full_prefix_hit_rate": 0.17833677685950414,
+      "steady_prefix_hit_rate": 0.1805298013245033,
+      "steady_request_latency_p50_s": 10.051538870669901
+    }
+  },
+  "comparison": {
+    "steady_hit_rate_gain_pp": 18.05298013245033,
+    "wall_speedup": 1.0615196546551346
+  },
+  "method": {
+    "physical_pool_control": "SGLang --max-total-tokens 180000",
+    "policy_control": "mode=off versus mode=unified with pool_tokens=180000",
+    "cache_isolation": "SGLang /flush_cache before each arm",
+    "note": "The 180k pool was selected by an LRU-only calibration that produced 0.00% steady prefix hits, matching the paper case's tight-cache regime. This is a systems validation, not the paper's end-to-end generation benchmark."
+  }
+}

@@ -1,0 +1,38 @@
+cff-version: 1.2.0
+message: If you use this code, please cite the paper and the archived release.
+title: "Reproduction code for: Collaboration topology governs inference-cache reuse in language-model agent teams"
+type: software
+version: 1.0.0
+doi: 10.5281/zenodo.YYYYYYY
+license: MIT
+repository-code: https://github.com/yuanmu97/teamcache-ncomms
+authors: &authors
+  - family-names: Yuan
+    given-names: Mu
+    affiliation: The Chinese University of Hong Kong
+  - family-names: Song
+    given-names: Jinke
+  - family-names: Liu
+    given-names: Junyue
+  - family-names: Jiang
+    given-names: Siyang
+  - family-names: Wang
+    given-names: Junyang
+  - family-names: Zhou
+    given-names: Zhaomeng
+  - family-names: Zhang
+    given-names: Lan
+  - family-names: Liu
+    given-names: Yunhao
+  - family-names: Xing
+    given-names: Guoliang
+preferred-citation:
+  type: article
+  title: "Collaboration topology governs inference-cache reuse in language-model agent teams"
+  journal: Nature Communications
+  authors: *authors
+references:
+  - type: dataset
+    title: "Data for: Collaboration topology governs inference-cache reuse in language-model agent teams"
+    doi: 10.5281/zenodo.XXXXXXX
+    authors: *authors

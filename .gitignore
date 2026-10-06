@@ -1,0 +1,13 @@
+/data/
+/out/
+__pycache__/
+*.egg-info/
+.venv/
+.DS_Store
+build/
+dist/
+.eggs/
+*.teamcache.bak
+.teamcache-selftest/
+.pytest_cache/
+.ruff_cache/

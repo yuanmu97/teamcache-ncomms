@@ -1,0 +1,8 @@
+{
+  "mode": "unified",
+  "pool_tokens": 200000,
+  "window_s": 30,
+  "adapt_window": 40,
+  "adapt_margin": 1.02,
+  "adapt_min_samples": 2
+}

@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "teamcache-ncomms"
+version = "1.0.0"
+description = "Reproduction code for 'Collaboration topology governs inference-cache reuse in language-model agent teams'"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.9"
+authors = [
+  { name = "Mu Yuan" }, { name = "Jinke Song" }, { name = "Junyue Liu" },
+  { name = "Siyang Jiang" }, { name = "Junyang Wang" }, { name = "Zhaomeng Zhou" },
+  { name = "Lan Zhang" }, { name = "Yunhao Liu" }, { name = "Guoliang Xing" },
+]
+dependencies = [
+  "numpy>=1.24",
+  "matplotlib>=3.7",
+  "pandas>=2.0",
+  "openpyxl>=3.1",
+  "pyarrow>=12",
+  "pillow>=9",
+]
+
+[tool.setuptools]
+packages = ["teamcache_ncomms"]

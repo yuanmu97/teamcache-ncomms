@@ -1,0 +1,57 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "teamcache"
+version = "0.3.0"
+description = "Team-aware prefix-cache admission and cluster routing for SGLang"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.9"
+authors = [
+    { name = "Mu Yuan", email = "muyuan@cuhk.edu.hk" },
+]
+keywords = ["sglang", "prefix-cache", "kv-cache", "agent-teams"]
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+[project.scripts]
+teamcache = "teamcache.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/yuanmu97/teamcache-ncomms/tree/main/teamcache"
+Repository = "https://github.com/yuanmu97/teamcache-ncomms.git"
+Issues = "https://github.com/yuanmu97/teamcache-ncomms/issues"
+
+[project.optional-dependencies]
+dev = ["pytest>=7", "ruff>=0.6"]
+
+[tool.setuptools.package-dir]
+"" = "src"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+teamcache = ["data/*.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py39"
+
+[tool.ruff.lint.per-file-ignores]
+# These are explicit resilience boundaries: proxy/discovery failures must be
+# converted into fail-open or HTTP error responses instead of escaping threads.
+"src/teamcache/cluster.py" = ["BLE001", "S110"]
+# The self-test intentionally executes the exact helper text injected into
+# SGLang; the matching unit test validates that same code path.
+"src/teamcache/selftest.py" = ["S102"]
+"tests/test_policy.py" = ["S102"]

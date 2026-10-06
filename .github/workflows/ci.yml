@@ -1,0 +1,57 @@
+name: reproduce
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  reproduce:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      ZENODO_RECORD: ${{ vars.ZENODO_RECORD }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Download the data deposit
+        if: env.ZENODO_RECORD != ''
+        run: make data
+      - name: Recompute every quoted number
+        if: env.ZENODO_RECORD != ''
+        run: make demo
+      - name: Rerun the cache-level experiments
+        if: env.ZENODO_RECORD != ''
+        run: make cache-level check-cache-level
+      - name: Regenerate figures and Source Data
+        if: env.ZENODO_RECORD != ''
+        run: make figures
+      - name: Import check without data
+        if: env.ZENODO_RECORD == ''
+        run: python -c "import teamcache_ncomms.claims, teamcache_ncomms.run_sims, teamcache_ncomms.run_baselines"
+      - uses: actions/upload-artifact@v4
+        if: env.ZENODO_RECORD != ''
+        with:
+          name: figures-and-source-data
+          path: out/
+
+  teamcache-package:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.9", "3.10", "3.11", "3.12"]
+    defaults:
+      run:
+        working-directory: teamcache
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - run: python -m pip install -e '.[dev]'
+      - run: pytest -q
+      - run: ruff check src tests

@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "name": "ring_20x5_p3000_r8",
+  "description": "Procedural, privacy-safe surrogate for 20 concurrent five-member round-robin agent teams.",
+  "license": "CC0-1.0",
+  "topology": "ring",
+  "teams": 20,
+  "members": 5,
+  "rounds": 8,
+  "preamble_tokens": 3000,
+  "message_tokens": 144,
+  "generation_tokens": 144,
+  "pool_tokens": 420800,
+  "vocab_size": 32000,
+  "seed": 0,
+  "steady_from_round": 4,
+  "notes": "Prompts are generated deterministically from this shape. Tokens 0-255 are avoided. Override vocab_size if the served model has fewer than 32000 tokens."
+}

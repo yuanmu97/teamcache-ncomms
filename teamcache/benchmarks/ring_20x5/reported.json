@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "case": "ring_20x5_p3000_r8",
+  "purpose": "A compact public record of the strongest representative SGLang case; not a golden performance threshold.",
+  "environment": {
+    "gpus": "8x NVIDIA B300",
+    "model": "Kimi K3",
+    "engine": "SGLang",
+    "engine_image": "lmsysorg/sglang@sha256:d6e7288627be8b02be88e4bba38e73f6d50e2826869f753c13a4c4385ab3eda9",
+    "tensor_parallel": 8,
+    "pool_tokens": 420800
+  },
+  "workload": {
+    "teams": 20,
+    "members_per_team": 5,
+    "rounds": 8,
+    "private_preamble_tokens": 3000,
+    "max_generation_tokens": 144,
+    "steady_rounds": [5, 6, 7, 8],
+    "seeds": [0, 1, 2]
+  },
+  "lru": {
+    "steady_prefix_hit_rate": {
+      "values": [0.0111052831, 0.0128196705, 0.0129219073],
+      "mean": 0.0122822870
+    },
+    "steady_wall_s": {
+      "values": [184.8998461, 189.2993884, 182.0876751],
+      "mean": 185.4289699
+    }
+  },
+  "teamcache": {
+    "steady_prefix_hit_rate": {
+      "values": [0.3426672270, 0.3693604671, 0.3535113696],
+      "mean": 0.3551796879
+    },
+    "steady_wall_s": {
+      "values": [151.2214973, 147.5146022, 151.6338432],
+      "mean": 150.1233142
+    }
+  },
+  "comparison": {
+    "steady_hit_rate_gain_pp": 34.2897401,
+    "steady_wall_speedup": 1.2351780
+  }
+}

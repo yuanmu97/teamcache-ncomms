@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "purpose": "Developer microbenchmark for the 0.3 indexing and accounting changes; informational, not a release threshold.",
+  "environment": {
+    "os": "Darwin 25.2.0 arm64",
+    "python": "3.9.6"
+  },
+  "policy_predicate": {
+    "workload": "200 teams, five members, 100 sequential steps per team, 20,000 unique request ids",
+    "before": {
+      "seconds": 4.5127,
+      "microseconds_per_request": 225.64,
+      "retained_decisions": 1400
+    },
+    "after": {
+      "seconds": 1.5717,
+      "microseconds_per_request": 78.59,
+      "retained_decisions": 1400
+    },
+    "speedup": 2.8712
+  },
+  "discovery": {
+    "workload": "2,000 unrelated live lineages followed by one three-message extension",
+    "before": {
+      "build_seconds": 1.121,
+      "extension_lookup_ms": 0.58
+    },
+    "after": {
+      "build_seconds": 0.063,
+      "extension_lookup_ms": 0.015
+    },
+    "extension_lookup_speedup": 38.6667
+  },
+  "notes": [
+    "The policy comparison produced the same retained-decision count before and after optimization.",
+    "Discovery semantics were also compared against the pre-index implementation on all 23 available JSONL traces (8,833 requests); member and final-team assignments were identical.",
+    "Absolute CPU timings are machine-specific."
+  ]
+}
